@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komorebi — São Tomé</title>
+<!-- Image filenames cleaned and simplified -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dusk:#2E2A1F;
+  --bark:#3D3828;
+  --sand:#C4A882;
+  --linen:#D9C9A8;
+  --cream:#EDE6D6;
+  --gold:#A68B5B;
+  --moss:#4A5C3F;
+  --deep-moss:#2D3D26;
+  --text:#F0E8D8;
+  --text-m:rgba(240,232,216,0.82);
+  --text-s:rgba(240,232,216,0.55);
+  --border:rgba(196,168,130,0.2);
+  --border-h:rgba(196,168,130,0.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Libre Baskerville',Georgia,serif;background:var(--dusk);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(46,42,31,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(6px);transition:box-shadow 0.3s}
+nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,0.35)}
+.nav-logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none}
+.nav-kanji{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--sand);border:1px solid rgba(196,168,130,0.35);width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;letter-spacing:0.2em;color:var(--cream)}
+.nav-name span{color:var(--sand)}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Libre Baskerville',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,232,216,0.75);text-decoration:none;transition:color 0.3s;white-space:nowrap}
+.nav-links a:hover{color:var(--sand)}
+.lang-btn{font-family:'Libre Baskerville',serif;font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sand);cursor:pointer;border:1px solid var(--border);padding:0.28rem 0.7rem;border-radius:2px;transition:all 0.3s;background:none;display:flex;align-items:center;line-height:1}
+.lang-btn:hover{border-color:var(--sand);background:rgba(196,168,130,0.08)}
+
+/* HERO */
+.hero{height:100vh;position:relative;display:flex;align-items:flex-end;padding-bottom:7rem;overflow:hidden}
+.hero-img{position:absolute;inset:0;background-image:url("images/hero-palm-coast.jpg");background-size:cover;background-position:center;filter:brightness(0.42)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(46,42,31,0.97) 0%,rgba(46,42,31,0.15) 55%,rgba(46,42,31,0.45) 100%)}
+.hero-content{position:relative;z-index:2;padding-left:5rem;animation:fadeUp 1.4s ease both}
+.eyebrow{font-family:'Libre Baskerville',serif;font-size:0.6rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--sand);margin-bottom:1.4rem;display:block}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,11vw,9rem);font-weight:300;line-height:0.88;color:var(--cream);letter-spacing:0.06em;margin-bottom:1.2rem}
+.hero-title em{font-style:italic;color:var(--sand)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:rgba(240,232,216,0.75);margin-bottom:2.2rem;letter-spacing:0.04em}
+.hero-cta{display:inline-block;padding:0.9rem 2.8rem;border:1px solid var(--sand);color:var(--sand);text-decoration:none;font-family:'Libre Baskerville',serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;transition:all 0.4s}
+.hero-cta:hover{background:var(--sand);color:var(--dusk)}
+.hero-scroll{position:absolute;bottom:2.5rem;right:4rem;display:flex;flex-direction:column;align-items:center;gap:0.4rem}
+.hero-scroll span{font-family:'Libre Baskerville',serif;font-size:0.5rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(196,168,130,0.4);writing-mode:vertical-rl}
+.hero-scroll::after{content:'';width:1px;height:44px;background:linear-gradient(to bottom,rgba(196,168,130,0.6),transparent);animation:scrollPulse 2.5s ease infinite}
+
+/* LABELS & TYPOGRAPHY */
+.section-label{font-family:'Libre Baskerville',serif;font-size:0.56rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;display:block}
+.display{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:300;line-height:1.18;color:var(--cream)}
+.display em{font-style:italic;color:var(--sand)}
+.body-t{font-family:'Libre Baskerville',serif;font-size:0.84rem;line-height:1.95;color:var(--text-m)}
+
+/* FACTS BANNER */
+.facts{background:var(--bark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 2rem;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;overflow-x:hidden}
+.fact{display:flex;align-items:center;gap:0.9rem;flex-shrink:0}
+.fact-icon{width:40px;height:40px;flex-shrink:0;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.fact-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--cream)}
+.fact-sub{font-family:'Libre Baskerville',serif;font-size:0.62rem;color:var(--text-m);margin-top:0.12rem;font-style:italic}
+.fact-div{width:1px;height:44px;background:var(--border);flex-shrink:0}
+
+/* INTRO */
+.intro{padding:7rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1280px;margin:0 auto;align-items:center}
+.intro-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.icard{background:var(--bark);padding:1.8rem 1.5rem}
+.icard.wide{grid-column:1/-1;background:rgba(61,56,40,0.7)}
+.icard-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:var(--sand);line-height:1}
+.icard-lbl{font-family:'Libre Baskerville',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--linen);margin-top:0.3rem}
+.icard-desc{font-family:'Libre Baskerville',serif;font-size:0.72rem;color:var(--text-m);line-height:1.7;margin-top:0.4rem}
+
+/* PHOTO STRIP */
+.photo-strip{display:flex;gap:3px;max-width:1280px;margin:0 auto;padding:0 5rem 7rem;height:300px}
+.photo-strip img{flex:1;min-width:0;width:0;height:100%;object-fit:cover;object-position:center;display:block}
+
+/* SPACES */
+.spaces{padding:0 5rem 7rem;max-width:1280px;margin:0 auto}
+.spaces-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3.5rem}
+.space-card{background:var(--bark);border:1px solid var(--border);border-radius:2px;overflow:hidden;cursor:pointer;transition:transform 0.4s,border-color 0.4s,box-shadow 0.4s;position:relative}
+.space-card:hover{transform:translateY(-5px);border-color:var(--border-h);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.space-card.feat{grid-column:span 2}
+.space-card.full{grid-column:1/-1}
+.space-img{width:100%;object-fit:cover;display:block;transition:transform 0.6s;image-rendering:auto;backface-visibility:hidden;transform:translateZ(0)}
+.space-card:hover .space-img{transform:scale(1.03)}
+.space-card.feat .space-img{height:300px}
+.space-card:not(.feat):not(.full) .space-img{height:280px}
+.space-card.full .space-img{height:auto;min-height:400px;max-height:500px}
+.space-info{padding:1.6rem}
+.space-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--cream);margin-bottom:0.2rem}
+.space-type{font-family:'Libre Baskerville',serif;font-size:0.55rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
+.space-desc{font-family:'Libre Baskerville',serif;font-size:0.75rem;line-height:1.85;color:var(--text-m)}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem}
+.tag{font-family:'Libre Baskerville',serif;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.22rem 0.65rem;border:1px solid var(--border);color:var(--text-m);border-radius:1px}
+.view-btn{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1.2rem;font-family:'Libre Baskerville',serif;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sand);border-bottom:1px solid rgba(196,168,130,0.3);padding-bottom:0.15rem;transition:border-color 0.3s}
+.space-card:hover .view-btn{border-color:var(--sand)}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(28,26,20,0.97);backdrop-filter:blur(4px);animation:fadeIn 0.3s ease}
+.lightbox.open{display:flex;flex-direction:column}
+.lb-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 3rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.lb-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--cream)}
+.lb-subtitle{font-family:'Libre Baskerville',serif;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:0.2rem}
+.lb-close{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text-m);cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:1px;transition:all 0.3s;line-height:1}
+.lb-close:hover{color:var(--cream);border-color:var(--border-h)}
+.lb-body{flex:1;overflow-y:auto;padding:3rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;max-width:1100px;margin:0 auto;width:100%}
+.lb-photos{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.lb-photos img{width:100%;height:200px;object-fit:cover;display:block}
+.lb-photos img:first-child{grid-column:1/-1;height:280px}
+.lb-plan{}
+.lb-plan-title{font-family:'Libre Baskerville',serif;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.lb-plan-img{width:100%;background:transparent;border-radius:2px;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
+.lb-plan-placeholder{text-align:center;padding:3rem 2rem}
+.lb-plan-placeholder .kanji{font-family:'Cormorant Garamond',serif;font-size:4rem;color:var(--sand);opacity:0.3;line-height:1;margin-bottom:1rem}
+.lb-plan-placeholder p{font-family:'Libre Baskerville',serif;font-size:0.65rem;color:var(--text-s);font-style:italic;line-height:1.7}
+.lb-desc{margin-top:1.5rem}
+.lb-desc p{font-family:'Libre Baskerville',serif;font-size:0.78rem;line-height:1.9;color:var(--text-m)}
+.lb-amenities{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem}
+
+/* EXPERIENCE */
+.experience{background:var(--bark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:7rem 5rem}
+.exp-inner{max-width:1280px;margin:0 auto}
+.exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem;margin-top:4rem}
+.exp-icon{width:50px;height:50px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(46,42,31,0.5);margin-bottom:1.1rem}
+.exp-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.5rem;white-space:nowrap}
+.exp-desc{font-family:'Libre Baskerville',serif;font-size:0.71rem;line-height:1.85;color:var(--text-m)}
+
+/* CACAO */
+.cacao{padding:7rem 5rem;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.cacao-left{display:flex;flex-direction:column}
+.cacao-img{width:100%;height:360px;object-fit:cover;object-position:center;border-radius:2px 2px 0 0;display:block}
+.cacao-quote{background:var(--bark);border:1px solid var(--border);border-top:none;padding:1.4rem 1.6rem;border-radius:0 0 2px 2px}
+.cacao-quote p{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--cream);line-height:1.65}
+.cacao-quote span{font-family:'Libre Baskerville',serif;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);display:block;margin-top:0.7rem}
+
+/* QUOTE */
+.quote-section{background:var(--deep-moss);padding:7rem 5rem;text-align:center}
+.quote-inner{max-width:800px;margin:0 auto}
+.q-mark{font-family:'Cormorant Garamond',serif;font-size:7rem;line-height:0.4;color:var(--sand);opacity:0.35;margin-bottom:2rem}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;font-style:italic;line-height:1.55;color:var(--cream);margin-bottom:2rem}
+.q-attr{font-family:'Libre Baskerville',serif;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--sand)}
+
+/* ISLAND */
+.island{padding:7rem 5rem;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;overflow:hidden}
+.island-img-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.island-img-grid img{width:100%;object-fit:cover;display:block}
+.island-img-grid img:first-child{grid-column:1/-1;height:260px}
+.island-img-grid img:not(:first-child){height:160px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:3px}
+.stat{background:var(--bark);padding:1.2rem;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--sand)}
+.stat-lbl{font-family:'Libre Baskerville',serif;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-m);margin-top:0.25rem}
+.info-list{margin-top:2rem}
+.info-item{display:flex;gap:1.1rem;align-items:flex-start;padding:1.1rem 0;border-bottom:1px solid var(--border)}
+.info-item:last-child{border-bottom:none}
+.info-icon{color:var(--gold);font-size:0.85rem;flex-shrink:0;margin-top:3px}
+.info-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--cream);margin-bottom:0.15rem}
+.info-detail{font-family:'Libre Baskerville',serif;font-size:0.67rem;color:var(--text-m);line-height:1.6;font-style:italic}
+
+/* RESERVE — CAPPED with waitlist */
+.reserve{background:var(--bark);border-top:1px solid var(--border);padding:7rem 5rem;position:relative;overflow:hidden}
+.reserve-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start}
+/* Capped overlay */
+.reserve-cap{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(46,42,31,0.88);backdrop-filter:blur(3px)}
+.cap-content{text-align:center;max-width:520px;padding:3rem}
+.cap-kanji{font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:var(--sand);opacity:0.5;line-height:1;margin-bottom:1.5rem}
+.cap-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--cream);margin-bottom:0.8rem;line-height:1.2}
+.cap-title em{font-style:italic;color:var(--sand)}
+.cap-sub{font-family:'Libre Baskerville',serif;font-size:0.78rem;color:var(--text-m);line-height:1.8;margin-bottom:2rem;font-style:italic}
+.cap-form{display:flex;gap:0;max-width:420px;margin:0 auto}
+.cap-input{flex:1;background:rgba(28,26,20,0.9);border:1px solid var(--border);border-right:none;padding:0.8rem 1.1rem;color:var(--cream);font-family:'Libre Baskerville',serif;font-size:0.78rem;outline:none;border-radius:1px 0 0 1px;transition:border-color 0.3s}
+.cap-input:focus{border-color:var(--sand)}
+.cap-input::placeholder{color:var(--text-s)}
+.cap-btn{background:var(--sand);border:none;padding:0.8rem 1.4rem;color:var(--dusk);font-family:'Libre Baskerville',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border-radius:0 1px 1px 0;transition:background 0.3s;white-space:nowrap}
+.cap-btn:hover{background:var(--linen)}
+.cap-note{font-family:'Libre Baskerville',serif;font-size:0.6rem;color:var(--text-s);margin-top:0.8rem;font-style:italic}
+
+/* Behind the overlay — pricing info */
+.form-box{background:var(--dusk);border:1px solid var(--border);border-radius:2px;padding:2.4rem}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--cream);margin-bottom:0.3rem}
+.form-sub{font-family:'Libre Baskerville',serif;font-size:0.65rem;color:var(--text-s);font-style:italic;margin-bottom:1.8rem}
+.f-lbl{font-family:'Libre Baskerville',serif;font-size:0.56rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-m);display:block;margin-bottom:0.35rem}
+.f-input{width:100%;background:rgba(46,42,31,0.8);border:1px solid var(--border);border-radius:1px;padding:0.68rem 0.9rem;color:var(--cream);font-family:'Libre Baskerville',serif;font-size:0.78rem;outline:none;margin-bottom:1rem}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.f-group{margin-bottom:1rem}
+.btn-res{width:100%;padding:0.95rem;background:var(--sand);border:none;border-radius:1px;color:var(--dusk);font-family:'Libre Baskerville',serif;font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer}
+.price-list{margin-top:1.8rem}
+.price-item{display:flex;justify-content:space-between;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--border)}
+.price-item:last-child{border-bottom:none}
+.price-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--cream)}
+.price-sub{font-family:'Libre Baskerville',serif;font-size:0.62rem;color:var(--text-m);font-style:italic;margin-top:0.12rem}
+.price-amt{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--sand);white-space:nowrap}
+.price-amt small{font-size:0.75rem;color:var(--text-m)}
+.price-badge{display:inline-block;background:rgba(196,168,130,0.12);border:1px solid var(--border);padding:0.3rem 0.7rem;border-radius:1px;font-family:'Libre Baskerville',serif;font-size:0.58rem;color:var(--sand);margin-top:0.5rem}
+.price-conditions{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.cond-item{display:flex;gap:0.6rem;font-family:'Libre Baskerville',serif;font-size:0.65rem;color:var(--text-m);margin-bottom:0.5rem;line-height:1.5}
+.cond-item::before{content:'·';color:var(--gold);flex-shrink:0}
+
+/* LEGAL */
+.legal{background:rgba(28,26,20,0.95);padding:3rem 5rem;border-top:1px solid rgba(196,168,130,0.08)}
+.legal-inner{max-width:1280px;margin:0 auto}
+.legal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:1.5rem}
+.legal-col-title{font-family:'Libre Baskerville',serif;font-size:0.55rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
+.legal-text{font-family:'Libre Baskerville',serif;font-size:0.62rem;color:var(--text-s);line-height:1.8;font-style:italic}
+
+/* FOOTER */
+footer{background:rgba(22,20,14,0.98);padding:3rem 5rem 2rem;border-top:1px solid rgba(196,168,130,0.08)}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(196,168,130,0.08)}
+.f-logo{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.7rem}
+.f-kanji{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--sand);border:1px solid rgba(196,168,130,0.22);width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.f-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:0.18em;color:var(--cream)}
+.f-name span{color:var(--sand)}
+.f-tagline{font-family:'Libre Baskerville',serif;font-size:0.68rem;line-height:1.85;color:var(--text-s);max-width:240px;font-style:italic}
+.f-col-title{font-family:'Libre Baskerville',serif;font-size:0.54rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.f-links{list-style:none}
+.f-links li{margin-bottom:0.5rem}
+.f-links a{font-family:'Libre Baskerville',serif;font-size:0.68rem;color:var(--text-s);text-decoration:none;transition:color 0.3s;font-style:italic}
+.f-links a:hover{color:var(--cream)}
+.footer-bottom{max-width:1280px;margin:1.5rem auto 0;display:flex;justify-content:space-between;align-items:center}
+.f-copy{font-family:'Libre Baskerville',serif;font-size:0.56rem;color:rgba(196,168,130,0.2);font-style:italic}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.9s ease,transform 0.9s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* LANG */
+.lang-es{display:none}
+body.es .lang-en{display:none}
+body.es .lang-es{display:block}
+span.lang-es{display:none}
+body.es span.lang-en{display:none}
+body.es span.lang-es{display:inline}
+
+/* ═══════════════════════════════
+   MOBILE RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 1100px) {
+  .facts { gap: 1.2rem; padding: 2rem 1.5rem; }
+  .fact-title { font-size: 0.88rem; }
+  .fact-sub { font-size: 0.72rem; }
+}
+
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav { padding: 1rem 1.5rem; }
+  .nav-name { font-size: 1rem; letter-spacing: 0.12em; }
+  .nav-kanji { width: 28px; height: 28px; font-size: 1.2rem; }
+  .nav-links { display: none; }
+
+  /* HERO */
+  .hero { padding-bottom: 4rem; }
+  .hero-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero-title { font-size: clamp(3.5rem, 16vw, 5rem); }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-scroll { right: 1.5rem; }
+
+  /* FACTS */
+  .facts {
+    flex-direction: column;
+    gap: 1.8rem;
+    padding: 2.5rem 1.5rem;
+    align-items: flex-start;
+  }
+  .fact-div { width: 100%; height: 1px; }
+  .fact-title { font-size: 0.95rem; }
+  .fact-sub { white-space: normal; }
+
+  /* INTRO */
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 4rem 1.5rem;
+  }
+
+  /* PHOTO STRIP */
+  .photo-strip {
+    height: 200px;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* SPACES */
+  .spaces { padding: 0 1.5rem 4rem; }
+  .spaces-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .space-card.feat { grid-column: 1; }
+  .space-card.full { grid-column: 1; }
+  .space-card.feat .space-img { height: 220px; }
+  .space-card:not(.feat):not(.full) .space-img { height: 200px; }
+  .space-card.full .space-img { height: 180px; }
+  .space-info { padding: 1.2rem; }
+
+  /* EXPERIENCE */
+  .experience { padding: 4rem 1.5rem; }
+  .exp-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .exp-title { white-space: normal; font-size: 1rem; }
+
+  /* CACAO */
+  .cacao {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 4rem 1.5rem;
+  }
+  .cacao-img { height: 260px; }
+  .cacao-quote { position: static; max-width: 100%; }
+
+  /* QUOTE */
+  .quote-section { padding: 5rem 1.5rem; }
+  .q-mark { font-size: 5rem; }
+
+  /* ISLAND */
+  .island {
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+  }
+  .island-img-grid {
+    width: 100%;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .island-img-grid img {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .island-img-grid img:first-child { height: 190px; }
+  .island-img-grid img:not(:first-child) { height: 120px; }
+  .island-map-wrap { width: 100%; overflow: hidden; }
+  .island-map-wrap img { width: 100%; height: auto; }
+  .info-item { overflow-wrap: anywhere; }
+  .info-detail { white-space: normal; }
+  .stats { width: 100%; max-width: 100%; }
+  .info-item { word-break: normal; overflow-wrap: anywhere; }
+  .info-detail { white-space: normal; }
+  .info-name { white-space: normal; }
+
+  /* RESERVE CAP */
+  .cap-content { padding: 2rem 1.5rem; }
+  .cap-title { font-size: 1.6rem; }
+  .cap-form { flex-direction: column; gap: 0.6rem; }
+  .cap-input { border-right: 1px solid var(--border); border-radius: 1px; }
+  .cap-btn { border-radius: 1px; padding: 0.8rem; }
+
+  /* RESERVE BEHIND */
+  .reserve-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+  }
+  .reserve { padding: 4rem 0; }
+
+  /* LEGAL */
+  .legal { padding: 3rem 1.5rem; }
+  .legal-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  /* FOOTER */
+  footer { padding: 3rem 1.5rem 2rem; }
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  /* LIGHTBOX */
+  .lb-header { padding: 1rem 1.2rem; }
+  .lb-title { font-size: 1.2rem; }
+  .lb-body {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  .lb-photos img { height: 150px; }
+  .lb-photos img:first-child { height: 200px; }
+  .lb-plan-img { min-height: 200px; }
+
+
+  /* MAP SECTION */
+  #map-inner {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  #map-text {
+    padding: 3rem 1.5rem !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(196,168,130,0.2) !important;
+  }
+  #map-img-wrap {
+    position: relative !important;
+    min-height: 480px !important;
+    height: 480px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .exp-grid { grid-template-columns: 1fr; }
+  .legal-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .intro-cards { grid-template-columns: 1fr; }
+  .icard.wide { grid-column: 1; }
+  .photo-strip { height: 160px; padding: 0 1rem 3rem; }
+  .stats { grid-template-columns: 1fr 1fr; }
+}
+
+}
+
+
+.map-text {
+    padding: 4rem 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .map-img-wrap {
+    position: relative;
+    min-height: auto;
+    height: 100vw;
+    max-height: 500px;
+  }
+  .map-img {
+    position: absolute;
+    object-fit: contain;
+    object-position: center;
+    background: var(--dusk);
+    padding: 1rem;
+  }
+}
+
+/* ACTIVITIES */
+.activities{padding:7rem 5rem;max-width:1280px;margin:0 auto}
+.act-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.2rem;margin-top:3.5rem}
+.act-card{background:var(--bark);border:1px solid var(--border);border-radius:2px;padding:1.8rem 1.5rem;transition:transform 0.3s,border-color 0.3s}
+.act-card:hover{transform:translateY(-4px);border-color:var(--border-h)}
+.act-icon{width:44px;height:44px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+.act-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.3rem}
+.act-spot{font-family:'Libre Baskerville',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem}
+.act-desc{font-family:'Libre Baskerville',serif;font-size:0.71rem;line-height:1.85;color:var(--text-m)}
+.act-season{display:inline-block;margin-top:0.8rem;font-family:'Libre Baskerville',serif;font-size:0.54rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-s);border-top:1px solid var(--border);padding-top:0.6rem;width:100%}
+
+@media (max-width: 1200px){.act-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width: 768px){.activities{padding:4rem 1.5rem}.act-grid{grid-template-columns:1fr 1fr;gap:1rem}.act-card{padding:1.3rem 1.1rem}}
+@media (max-width: 480px){.act-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<style>
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--sand);
+  display: block;
+  transition: all 0.3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(46,42,31,0.99);
+  z-index: 200;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.mobile-menu a:hover { color: var(--sand); }
+.mobile-menu-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--text-m);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+}
+
+/* ACTIVITIES */
+.activities{padding:7rem 5rem;max-width:1280px;margin:0 auto}
+.act-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.2rem;margin-top:3.5rem}
+.act-card{background:var(--bark);border:1px solid var(--border);border-radius:2px;padding:1.8rem 1.5rem;transition:transform 0.3s,border-color 0.3s}
+.act-card:hover{transform:translateY(-4px);border-color:var(--border-h)}
+.act-icon{width:44px;height:44px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+.act-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.3rem}
+.act-spot{font-family:'Libre Baskerville',serif;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem}
+.act-desc{font-family:'Libre Baskerville',serif;font-size:0.71rem;line-height:1.85;color:var(--text-m)}
+.act-season{display:inline-block;margin-top:0.8rem;font-family:'Libre Baskerville',serif;font-size:0.54rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-s);border-top:1px solid var(--border);padding-top:0.6rem;width:100%}
+
+@media (max-width: 1200px){.act-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width: 768px){.activities{padding:4rem 1.5rem}.act-grid{grid-template-columns:1fr 1fr;gap:1rem}.act-card{padding:1.3rem 1.1rem}}
+@media (max-width: 480px){.act-grid{grid-template-columns:1fr}}
+</style>
+
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-kanji">日</div>
+    <div class="nav-name">KOMO<span>REBI</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#spaces"><span class="lang-en">Spaces</span><span class="lang-es">Espacios</span></a></li>
+    <li><a href="#activities"><span class="lang-en">Activities</span><span class="lang-es">Actividades</span></a></li>
+    <li><a href="#experience"><span class="lang-en">Experience</span><span class="lang-es">Experiencia</span></a></li>
+    <li><a href="#island"><span class="lang-en">The Island</span><span class="lang-es">La Isla</span></a></li>
+    <li><a href="#reserve"><span class="lang-en">Join Waitlist</span><span class="lang-es">Lista de Espera</span></a></li>
+  </ul>
+  <div class="hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
+  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">ES</button>
+</nav>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-close" onclick="closeMobileMenu()">×</div>
+  <a href="#spaces" onclick="closeMobileMenu()"><span class="lang-en">Spaces</span><span class="lang-es">Espacios</span></a>
+  <a href="#experience" onclick="closeMobileMenu()"><span class="lang-en">Experience</span><span class="lang-es">Experiencia</span></a>
+  <a href="#island" onclick="closeMobileMenu()"><span class="lang-en">The Island</span><span class="lang-es">La Isla</span></a>
+  <a href="#reserve" onclick="closeMobileMenu()"><span class="lang-en">Join Waitlist</span><span class="lang-es">Lista de Espera</span></a>
+</div>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="eyebrow lang-en">São Tomé Island · Gulf of Guinea · West Africa</span>
+    <span class="eyebrow lang-es">Isla de São Tomé · Golfo de Guinea · África Occidental</span>
+    <h1 class="hero-title">KOMO<em>REBI</em></h1>
+    <p class="hero-sub lang-en">Where light filters through the canopy,<br>and the ocean meets your door</p>
+    <p class="hero-sub lang-es">Donde la luz se filtra entre el dosel,<br>y el océano llega hasta tu puerta</p>
+    <a href="#reserve" class="hero-cta lang-en">Join the Waitlist</a>
+    <a href="#reserve" class="hero-cta lang-es" style="display:none">Únete a la Lista</a>
+  </div>
+  <div class="hero-scroll"><span class="lang-en">Discover</span><span class="lang-es">Descubrir</span></div>
+</section>
+
+<!-- FACTS BANNER -->
+<div class="facts fade-in">
+  <div class="fact">
+    <div class="fact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.3"><path d="M2 12 Q6 8 12 12 Q18 16 22 12"/><path d="M2 17 Q6 13 12 17 Q18 21 22 17"/></svg></div>
+    <div>
+      <div class="fact-title lang-en">Beachfront Estate</div>
+      <div class="fact-title lang-es">Finca en Primera Línea</div>
+      <div class="fact-sub lang-en">Direct beach access · Ocean views from suite & living</div>
+      <div class="fact-sub lang-es">Acceso directo · Vistas al mar desde la suite y el salón</div>
+    </div>
+  </div>
+  <div class="fact-div"></div>
+  <div class="fact">
+    <div class="fact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M8 21 Q8 14 12 14 Q16 14 16 21"/></svg></div>
+    <div>
+      <div class="fact-title lang-en">Up to 8 Guests</div>
+      <div class="fact-title lang-es">Hasta 8 Huéspedes</div>
+      <div class="fact-sub lang-en">Exclusive use · The entire estate is yours</div>
+      <div class="fact-sub lang-es">Uso exclusivo · Toda la finca para ti</div>
+    </div>
+  </div>
+  <div class="fact-div"></div>
+  <div class="fact">
+    <div class="fact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.3"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg></div>
+    <div>
+      <div class="fact-title lang-en">Africa's Best-Kept Secret</div>
+      <div class="fact-title lang-es">El Secreto Mejor Guardado de África</div>
+      <div class="fact-sub lang-en">6 hours from Europe · No mass tourism · Ever</div>
+      <div class="fact-sub lang-es">6h desde Europa · Sin turismo masivo · Nunca</div>
+    </div>
+  </div>
+  <div class="fact-div"></div>
+  <div class="fact">
+    <div class="fact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.3"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg></div>
+    <div>
+      <div class="fact-title lang-en">Opens 2026</div>
+      <div class="fact-title lang-es">Abre en 2026</div>
+      <div class="fact-sub lang-en">Join the waitlist · Be among the first</div>
+      <div class="fact-sub lang-es">Únete a la lista · Sé de los primeros</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro fade-in">
+  <div>
+    <span class="section-label lang-en">The Philosophy</span>
+    <span class="section-label lang-es">La Filosofía</span>
+    <h2 class="display lang-en">A hideaway <em>beyond</em><br>the ordinary world</h2>
+    <h2 class="display lang-es">Un refugio <em>más allá</em><br>del mundo ordinario</h2>
+    <p class="body-t" style="margin-top:1.4rem">
+      <span class="lang-en">Komorebi takes its name from a Japanese word — the interplay of light and leaves, sunbeams dancing through a forest canopy. Here, on one of Africa's most untouched islands, that poetic stillness is not just an inspiration. It is your daily reality.</span>
+      <span class="lang-es">Komorebi toma su nombre de una palabra japonesa — el juego de luz entre las hojas. Aquí, en una de las islas más vírgenes de África, esa quietud poética no es solo una inspiración. Es tu realidad diaria.</span>
+    </p>
+    <p class="body-t" style="margin-top:1.1rem">
+      <span class="lang-en">São Tomé remains one of the world's best-kept secrets. No mass tourism. No noise. A private beachfront estate where the master suite and living room open directly to the ocean — and nothing stands between you and the horizon.</span>
+      <span class="lang-es">São Tomé sigue siendo uno de los secretos mejor guardados del mundo. Sin turismo masivo. Una finca en primera línea de playa donde la suite principal y el salón se abren directamente al océano.</span>
+    </p>
+  </div>
+  <div class="intro-cards">
+    <div class="icard wide">
+      <div class="icard-num">4</div>
+      <div class="icard-lbl lang-en">Private accommodations</div>
+      <div class="icard-lbl lang-es">Alojamientos privados</div>
+      <div class="icard-desc lang-en">One master suite + three garden rooms, each with private en-suite bathroom</div>
+      <div class="icard-desc lang-es">Una suite principal + tres habitaciones con jardín, cada una con baño privado</div>
+    </div>
+    <div class="icard">
+      <div class="icard-num">∞</div>
+      <div class="icard-lbl lang-en">Exclusive use</div>
+      <div class="icard-lbl lang-es">Uso exclusivo</div>
+      <div class="icard-desc lang-en">Full estate for private groups</div>
+      <div class="icard-desc lang-es">Finca completa para grupos</div>
+    </div>
+    <div class="icard">
+      <div class="icard-num" style="font-variant-numeric:lining-nums;">0h</div>
+      <div class="icard-lbl lang-en">Time difference</div>
+      <div class="icard-lbl lang-es">Diferencia horaria</div>
+      <div class="icard-desc lang-en">Same time as Western Europe</div>
+      <div class="icard-desc lang-es">Mismo horario que Europa</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip fade-in">
+  <img src="images/emerald-lagoon-aerial.jpg" alt="São Tomé lagoon">
+  <img src="images/palm-beach-view.jpg" alt="São Tomé beach">
+  <img src="images/coastal-palm-road.jpg" alt="São Tomé coast">
+  <img src="images/jungle-road-aerial.jpg" alt="São Tomé jungle">
+</div>
+
+<!-- SPACES -->
+<section id="spaces">
+  <div class="spaces fade-in">
+    <span class="section-label lang-en">The Estate</span>
+    <span class="section-label lang-es">La Finca</span>
+    <h2 class="display lang-en">Three <em>sanctuaries</em>, one paradise</h2>
+    <h2 class="display lang-es">Tres <em>santuarios</em>, un paraíso</h2>
+    <div class="spaces-grid">
+
+      <!-- SUITE — full width (hero) -->
+      <div class="space-card full" onclick="openLightbox('suite')">
+        <img class="space-img" src="images/private-suite-aerial.jpg" alt="suite">
+        <div class="space-info">
+          <div class="space-type lang-en">Master Suite · Sea Views · Private Block</div>
+          <div class="space-type lang-es">Suite Principal · Vistas al Mar · Bloque Privado</div>
+          <h3 class="space-name lang-en">The Suite</h3>
+          <h3 class="space-name lang-es">La Suite</h3>
+          <p class="space-desc lang-en">An independent block with sweeping ocean views. Wake up to the sound of waves and equatorial sunrise. Generous bedroom sanctuary with en-suite bathroom and private outdoor space.</p>
+          <p class="space-desc lang-es">Un bloque independiente con vistas al océano. Despierta con el sonido de las olas. Dormitorio generoso con baño en suite y espacio exterior privado.</p>
+          <div class="tags">
+            <span class="tag lang-en">Ocean Views</span><span class="tag lang-es" style="display:none">Vistas al Mar</span>
+            <span class="tag lang-en">King Bed</span><span class="tag lang-es" style="display:none">Cama King</span>
+            <span class="tag lang-en">En-suite Bath</span><span class="tag lang-es" style="display:none">Baño Privado</span>
+            <span class="tag lang-en">Beach Access</span><span class="tag lang-es" style="display:none">Acceso Playa</span>
+          </div>
+          <div class="view-btn lang-en">View space & floor plan →</div>
+          <div class="view-btn lang-es">Ver espacio y plano →</div>
+        </div>
+      </div>
+
+      <!-- GARDEN ROOMS — half width -->
+      <div class="space-card" onclick="openLightbox('garden')">
+        <img class="space-img" src="images/garden-rooms-aerial.jpg" alt="garden rooms">
+        <div class="space-info">
+          <div class="space-type lang-en">Garden Block · Three Rooms · Private Bathrooms</div>
+          <div class="space-type lang-es">Bloque Jardín · Tres Habitaciones · Baños Privados</div>
+          <h3 class="space-name lang-en">The Garden Rooms</h3>
+          <h3 class="space-name lang-es">Las Habitaciones del Jardín</h3>
+          <p class="space-desc lang-en">Set at the rear of the estate, three beautifully appointed rooms — each with private en-suite bathroom — nestled into the lush tropical garden. Perfect for friends, families, or small exclusive retreats.</p>
+          <p class="space-desc lang-es">Situadas en la parte trasera de la finca, tres hermosas habitaciones — cada una con baño privado — integradas en el exuberante jardín tropical. Perfectas para amigos, familias o retiros exclusivos.</p>
+          <div class="tags">
+            <span class="tag lang-en">3 Rooms</span><span class="tag lang-es" style="display:none">3 Habitaciones</span>
+            <span class="tag lang-en">En-suite Baths</span><span class="tag lang-es" style="display:none">Baños Privados</span>
+            <span class="tag lang-en">Tropical Garden</span><span class="tag lang-es" style="display:none">Jardín Tropical</span>
+          </div>
+          <div class="view-btn lang-en">View spaces & floor plan →</div>
+          <div class="view-btn lang-es">Ver espacios y plano →</div>
+        </div>
+      </div>
+
+      <!-- LIVING — half width -->
+      <div class="space-card" onclick="openLightbox('living')">
+        <img class="space-img" src="images/beachfront-living-view.jpg" alt="living kitchen">
+        <div class="space-info">
+          <div class="space-type lang-en">Communal · Sea Views</div>
+          <div class="space-type lang-es">Comunal · Vistas al Mar</div>
+          <h3 class="space-name lang-en">Living & Kitchen</h3>
+          <h3 class="space-name lang-es">Salón y Cocina</h3>
+          <p class="space-desc lang-en">The heart of Komorebi. Mornings begin with tropical fruits and local cacao, evenings end with the sound of waves. Fully equipped kitchen, dining and lounge with direct ocean views.</p>
+          <p class="space-desc lang-es">El corazón de Komorebi. Las mañanas comienzan con frutas tropicales y cacao local. Cocina completa, comedor y salón con vistas directas al océano.</p>
+          <div class="tags">
+            <span class="tag lang-en">Ocean Views</span><span class="tag lang-es" style="display:none">Vistas al Mar</span>
+            <span class="tag lang-en">Full Kitchen</span><span class="tag lang-es" style="display:none">Cocina Completa</span>
+          </div>
+          <div class="view-btn lang-en">View space & floor plan →</div>
+          <div class="view-btn lang-es">Ver espacio y plano →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX: SUITE -->
+<div class="lightbox" id="lb-suite">
+  <div class="lb-header">
+    <div>
+      <div class="lb-title lang-en">The Suite</div>
+      <div class="lb-title lang-es">La Suite</div>
+      <div class="lb-subtitle lang-en">Master Suite · Sea Views · Private Block</div>
+      <div class="lb-subtitle lang-es">Suite Principal · Vistas al Mar · Bloque Privado</div>
+    </div>
+    <div class="lb-close" onclick="closeLightbox('suite')">×</div>
+  </div>
+  <div class="lb-body" style="grid-template-columns:1fr;max-width:700px;">
+    <div class="lb-desc" style="margin-bottom:2rem;">
+      <p class="lang-en">An independent block offering complete seclusion. A generous bedroom sanctuary opens to private outdoor space, with sweeping views of the Atlantic. Wake to the sound of waves and the light of the equatorial sunrise. Designed for couples seeking an experience that transcends accommodation.</p>
+      <p class="lang-es">Un bloque independiente que ofrece total privacidad. Un generoso dormitorio santuario se abre a un espacio exterior privado, con vistas al Atlántico. Despierta con el sonido de las olas y la luz del amanecer ecuatorial.</p>
+      <div class="lb-amenities" style="margin-top:1.2rem;">
+        <span class="tag lang-en">King Bed</span><span class="tag lang-es" style="display:none">Cama King</span>
+        <span class="tag lang-en">En-suite Bathroom</span><span class="tag lang-es" style="display:none">Baño Privado</span>
+        <span class="tag lang-en">Ocean Views</span><span class="tag lang-es" style="display:none">Vistas al Mar</span>
+        <span class="tag lang-en">Private Terrace</span><span class="tag lang-es" style="display:none">Terraza Privada</span>
+        <span class="tag lang-en">Beach Access</span><span class="tag lang-es" style="display:none">Acceso Playa</span>
+              </div>
+    </div>
+    <div class="lb-plan">
+      <div class="lb-plan-title lang-en">Floor Plan</div>
+      <div class="lb-plan-title lang-es">Plano</div>
+      <div class="lb-plan-img">
+        <img src="images/the-suite-floorplan.jpg" alt="The Suite Floor Plan" style="width:100%;height:auto;display:block;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX: LIVING -->
+<div class="lightbox" id="lb-living">
+  <div class="lb-header">
+    <div>
+      <div class="lb-title lang-en">Living & Kitchen</div>
+      <div class="lb-title lang-es">Salón y Cocina</div>
+      <div class="lb-subtitle lang-en">Communal · Sea Views · Heart of the Estate</div>
+      <div class="lb-subtitle lang-es">Comunal · Vistas al Mar · Corazón de la Finca</div>
+    </div>
+    <div class="lb-close" onclick="closeLightbox('living')">×</div>
+  </div>
+  <div class="lb-body" style="grid-template-columns:1fr;max-width:700px;">
+    <div class="lb-desc" style="margin-bottom:2rem;">
+      <p class="lang-en">The heart of Komorebi. Mornings begin here with tropical fruits, local cacao and the sound of the ocean. Evenings gather around the dining table with views of the Atlantic horizon. A fully equipped kitchen, spacious dining area and lounge — shared by all guests, owned by no one moment in particular.</p>
+      <p class="lang-es">El corazón de Komorebi. Las mañanas comienzan aquí con frutas tropicales, cacao local y el sonido del océano. Las noches se reúnen alrededor de la mesa con vistas al horizonte atlántico.</p>
+      <div class="lb-amenities" style="margin-top:1.2rem;">
+        <span class="tag lang-en">Ocean Views</span><span class="tag lang-es" style="display:none">Vistas al Mar</span>
+        <span class="tag lang-en">Full Kitchen</span><span class="tag lang-es" style="display:none">Cocina Completa</span>
+        <span class="tag lang-en">Dining Area</span><span class="tag lang-es" style="display:none">Comedor</span>
+        <span class="tag lang-en">Lounge</span><span class="tag lang-es" style="display:none">Salón</span>
+        <span class="tag lang-en">Beach Access</span><span class="tag lang-es" style="display:none">Acceso Playa</span>
+      </div>
+    </div>
+    <div class="lb-plan">
+      <div class="lb-plan-title lang-en">Floor Plan</div>
+      <div class="lb-plan-title lang-es">Plano</div>
+      <div class="lb-plan-img">
+        <div class="lb-plan-placeholder">
+          <div class="kanji">日</div>
+          <p class="lang-en">Floor plan coming soon.<br>Contact us for detailed information.</p>
+          <p class="lang-es">Plano próximamente.<br>Contáctanos para más información.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX: GARDEN -->
+<div class="lightbox" id="lb-garden">
+  <div class="lb-header">
+    <div>
+      <div class="lb-title lang-en">The Garden Rooms</div>
+      <div class="lb-title lang-es">Las Habitaciones del Jardín</div>
+      <div class="lb-subtitle lang-en">Garden Block · Three Rooms · Private Bathrooms</div>
+      <div class="lb-subtitle lang-es">Bloque Jardín · Tres Habitaciones · Baños Privados</div>
+    </div>
+    <div class="lb-close" onclick="closeLightbox('garden')">×</div>
+  </div>
+  <div class="lb-body" style="grid-template-columns:1fr;max-width:700px;">
+    <div>
+      <div class="lb-desc" style="margin-bottom:2rem;">
+        <p class="lang-en">Set at the rear of the estate, nestled into the lush tropical garden, three beautifully appointed rooms each with their own private en-suite bathroom. Natural light pours through every morning. Perfect for friends travelling together, extended families, or small exclusive retreats.</p>
+        <p class="lang-es">Situadas en la parte trasera de la finca, integradas en el jardín tropical, tres hermosas habitaciones cada una con su propio baño privado. La luz natural entra cada mañana. Perfectas para amigos, familias o retiros exclusivos.</p>
+        <div class="lb-amenities" style="margin-top:1.2rem;">
+          <span class="tag lang-en">3 Rooms</span><span class="tag lang-es" style="display:none">3 Habitaciones</span>
+          <span class="tag lang-en">En-suite Baths</span><span class="tag lang-es" style="display:none">Baños Privados</span>
+          <span class="tag lang-en">Garden Access</span><span class="tag lang-es" style="display:none">Acceso al Jardín</span>
+          <span class="tag lang-en">Natural Light</span><span class="tag lang-es" style="display:none">Luz Natural</span>
+                  </div>
+      </div>
+    </div>
+    <div class="lb-plan">
+      <div class="lb-plan-title lang-en">Floor Plan</div>
+      <div class="lb-plan-title lang-es">Plano</div>
+      <div class="lb-plan-img">
+        <img src="images/garden-rooms-floorplan.jpg" alt="Garden Rooms Floor Plan" style="width:100%;height:auto;display:block;">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ISLAND -->
+<section id="island">
+  <div class="island fade-in">
+    <div>
+      <span class="section-label lang-en">The Destination</span>
+      <span class="section-label lang-es">El Destino</span>
+      <h2 class="display lang-en">The island the world <em>hasn't discovered</em> yet</h2>
+      <h2 class="display lang-es">La isla que el mundo <em>aún no ha descubierto</em></h2>
+      
+      <p class="body-t" style="margin-top:1.4rem">
+        <span class="lang-en"><strong>São Tomé and Príncipe is a microstate in the Gulf of Guinea — two small islands draped in UNESCO-protected rainforest, volcanic peaks, and beaches that have never seen a beach umbrella.</strong> Founded by Portuguese navigators in the 15th century, the islands carry a layered history of exploration, colonial cacao plantations, and a vibrant Creole culture born from African, Portuguese, and Caribbean influences. Ancient rainforests climb the slopes of Pico Cão Grande, a dramatic volcanic plug that pierces the clouds. Deserted beaches of golden and black sand curve into turquoise bays, where endemic birds call from the canopy and waterfalls cascade through pristine jungle trails.</span>
+        <span class="lang-es"><strong>Santo Tomé y Príncipe es un microestado en el Golfo de Guinea — dos pequeñas islas cubiertas de selva tropical protegida por la UNESCO, picos volcánicos y playas que nunca han visto una sombrilla.</strong> Fundadas por navegantes portugueses en el siglo XV, las islas llevan una historia estratificada de exploración, plantaciones coloniales de cacao y una vibrante cultura criolla nacida de influencias africanas, portuguesas y caribeñas. Bosques ancestrales escalan las laderas del Pico Cão Grande, un dramático tapón volcánico que perfora las nubes. Playas desiertas de arena dorada y negra se curvan en bahías turquesas, donde aves endémicas cantan desde el dosel y cascadas caen por senderos de selva prístina.</span>
+      </p>
+      
+      <p class="body-t" style="margin-top:1rem">
+        <span class="lang-en"><strong>With no time difference from Western Europe and direct flights from Lisbon in under six hours, Komorebi is both a complete escape from the world and effortlessly reachable.</strong> Unlike remote island paradises that require multiple connections and grueling travel, São Tomé offers the rare combination of true wilderness and convenient access. You can leave a European winter morning and arrive in equatorial sunshine by afternoon, ready to trade snow for palm-shaded beaches and city stress for the sound of waves.</span>
+        <span class="lang-es"><strong>Sin diferencia horaria con Europa Occidental y vuelos directos desde Lisboa en menos de seis horas, Komorebi es tanto un escape completo del mundo como fácilmente accesible.</strong> A diferencia de paraísos isleños remotos que requieren múltiples conexiones y viajes agotadores, Santo Tomé ofrece la rara combinación de naturaleza salvaje auténtica y acceso conveniente. Puedes dejar una mañana de invierno europea y llegar bajo el sol ecuatorial por la tarde, listo para cambiar nieve por playas sombreadas de palmeras y el estrés urbano por el sonido de las olas.</span>
+      </p>
+      
+      <p class="body-t" style="margin-top:1.4rem;padding-top:0.8rem;border-top:1px solid var(--border)">
+        <span class="lang-en"><strong>When to Visit</strong><br>The dry season (June to September) brings clearer skies and calmer seas, ideal for beach days. The gravana season (October to May) brings more rain, which means the rainforest explodes into vivid greens and waterfalls run at full force. Year-round, temperatures hover around a perfect 25°C.</span>
+        <span class="lang-es"><strong>Cuándo Venir</strong><br>La estación seca (junio a septiembre) trae cielos más despejados y mares tranquilos, ideal para días de playa. La estación gravana (octubre a mayo) trae más lluvia, lo que significa que la selva explota en verdes vívidos y las cascadas corren a máxima potencia. Durante todo el año, las temperaturas rondan los perfectos 25°C.</span>
+      </p>
+      
+      <div class="info-list" style="margin-top:2rem">
+        <div class="info-item">
+          <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.4"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+          <div>
+            <div class="info-name lang-en">Getting There</div>
+            <div class="info-name lang-es">Cómo Llegar</div>
+            <div class="info-detail lang-en">Direct flights from Lisbon (TAP) · Connections via Accra & Luanda · ~6h from Europe</div>
+            <div class="info-detail lang-es">Vuelos directos desde Lisboa (TAP) · Conexiones vía Accra y Luanda · ~6h desde Europa</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div>
+            <div class="info-name lang-en">No Time Change</div>
+            <div class="info-name lang-es">Sin Cambio Horario</div>
+            <div class="info-detail lang-en">São Tomé shares the same timezone as Western Europe year-round. No jet lag. Arrive ready to live slowly.</div>
+            <div class="info-detail lang-es">São Tomé comparte el huso horario de Europa Occidental todo el año. Sin jet lag. Llegas listo para vivir despacio.</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.4"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
+          <div>
+            <div class="info-name lang-en">When to Visit</div>
+            <div class="info-name lang-es">Cuándo Venir</div>
+            <div class="info-detail lang-en">Dry season (Jun–Sep) for beaches · Gravana (Oct–May) for lush jungle · Year-round 25°C</div>
+            <div class="info-detail lang-es">Estación seca (Jun–Sep) para playas · Gravana (Oct–May) para selva exuberante · 25°C todo el año</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="island-map-wrap">
+        <img src="images/sao-tome-island-map.jpg" alt="São Tomé Island map" style="width:100%;height:auto;display:block;border-radius:2px">
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-num">0h</div><div class="stat-lbl lang-en">Time diff. Europe</div><div class="stat-lbl lang-es">Dif. horaria Europa</div></div>
+        <div class="stat"><div class="stat-num">25°C</div><div class="stat-lbl lang-en">Year-round</div><div class="stat-lbl lang-es">Todo el año</div></div>
+        <div class="stat"><div class="stat-num">&lt;6h</div><div class="stat-lbl lang-en">From Lisbon</div><div class="stat-lbl lang-es">Desde Lisboa</div></div>
+        <div class="stat"><div class="stat-num">1°N</div><div class="stat-lbl lang-en">The Equator</div><div class="stat-lbl lang-es">El Ecuador</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="activities fade-in">
+    <span class="section-label lang-en">Around Komorebi</span>
+    <span class="section-label lang-es">Alrededor de Komorebi</span>
+    <h2 class="display lang-en">Five <em>extraordinary</em> things<br>to do on the island</h2>
+    <h2 class="display lang-es">Cinco <em>experiencias</em> extraordinarias<br>en la isla</h2>
+    <div class="act-grid">
+
+      <!-- SURF -->
+      <div class="act-card">
+        <div class="act-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2">
+            <path d="M2 15 Q6 9 12 13 Q18 17 22 11"/><path d="M2 19 Q6 13 12 17 Q18 21 22 15"/>
+          </svg>
+        </div>
+        <div class="act-name lang-en">Surfing</div>
+        <div class="act-name lang-es">Surf</div>
+        <div class="act-spot lang-en">Dique · Sete Ondas · Radiation Point</div>
+        <div class="act-spot lang-es">Dique · Sete Ondas · Radiation Point</div>
+        <p class="act-desc lang-en">The São Tomé Surf Club is based in Santana — steps from Komorebi. Sete Ondas (Seven Waves Beach) offers a sand-bottom break ideal for all levels. Radiation Point, 30 minutes south, is considered one of the best point breaks in Africa: a long, clean right-hander on volcanic rock.</p>
+        <p class="act-desc lang-es">El São Tomé Surf Club tiene su sede en Santana, a pasos de Komorebi. Sete Ondas es perfecta para todos los niveles. Radiation Point, a 30 minutos al sur, es uno de los mejores point breaks de África: una derecha larga y limpia sobre roca volcánica.</p>
+        <span class="act-season lang-en">Best: June – September</span>
+        <span class="act-season lang-es">Mejor época: junio – septiembre</span>
+      </div>
+
+      <!-- TURTLES -->
+      <div class="act-card">
+        <div class="act-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2">
+            <ellipse cx="12" cy="12" rx="5" ry="4"/><path d="M7 9 Q4 6 3 3"/><path d="M17 9 Q20 6 21 3"/><path d="M7 15 Q4 18 3 21"/><path d="M17 15 Q20 18 21 21"/><path d="M12 8 Q12 5 12 3"/>
+          </svg>
+        </div>
+        <div class="act-name lang-en">Sea Turtles</div>
+        <div class="act-name lang-es">Tortugas Marinas</div>
+        <div class="act-spot lang-en">East Coast Beaches · Santana Area</div>
+        <div class="act-spot lang-es">Costa Este · Área de Santana</div>
+        <p class="act-desc lang-en">Five of the world's seven sea turtle species nest on São Tomé — including the critically endangered hawksbill. The beaches around Komorebi are part of the 52 monitored by Programa Tatô. Night walks (8pm–midnight) with local rangers take you to watch nesting turtles under the stars.</p>
+        <p class="act-desc lang-es">Cinco de las siete especies de tortugas marinas del mundo anidan en São Tomé, incluida la tortuga carey en peligro crítico. Las playas cercanas a Komorebi forman parte de las 52 monitorizadas por el Programa Tatô. Excursiones nocturnas con rangers locales.</p>
+        <span class="act-season lang-en">Best: October – February</span>
+        <span class="act-season lang-es">Mejor época: octubre – febrero</span>
+      </div>
+
+      <!-- CACAO -->
+      <div class="act-card">
+        <div class="act-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2">
+            <path d="M12 3 Q14 6 12 9 Q10 6 12 3z"/><ellipse cx="12" cy="15" rx="7" ry="5"/><path d="M12 9v6"/>
+          </svg>
+        </div>
+        <div class="act-name lang-en">Cacao Plantations</div>
+        <div class="act-name lang-es">Plantaciones de Cacao</div>
+        <div class="act-spot lang-en">Uba Budo · Roça Água Izé</div>
+        <div class="act-spot lang-es">Uba Budo · Roça Água Izé</div>
+        <p class="act-desc lang-en">Uba Budo, just 5km from Santana, is the closest plantation where you can see the entire cacao process from pod to dried bean. Roça Água Izé, 30 minutes south along the east coast, is one of the island's most historic estates — where commercial cacao production began in the 19th century.</p>
+        <p class="act-desc lang-es">Uba Budo, a solo 5km de Santana, es la plantación más cercana donde se puede ver todo el proceso del cacao. Roça Água Izé, a 30 minutos por la costa este, es una de las fincas más históricas de la isla, donde empezó la producción comercial de cacao en el s.XIX.</p>
+        <span class="act-season lang-en">Year-round · Harvest: Oct – Feb</span>
+        <span class="act-season lang-es">Todo el año · Cosecha: oct – feb</span>
+      </div>
+
+      <!-- HIKING -->
+      <div class="act-card">
+        <div class="act-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2">
+            <path d="M3 20 L8 10 L12 15 L16 8 L21 20"/><path d="M3 20h18"/>
+          </svg>
+        </div>
+        <div class="act-name lang-en">Hiking</div>
+        <div class="act-name lang-es">Senderismo</div>
+        <div class="act-spot lang-en">Obô National Park · Pico Cão Grande</div>
+        <div class="act-spot lang-es">Parque Natural Obô · Pico Cão Grande</div>
+        <p class="act-desc lang-en">Obô National Park covers 30% of the island — primary rainforest, endemic birds, waterfalls. Pico Cão Grande, the island's iconic volcanic needle, is a 3–6 hour guided hike. For the ambitious: Pico de São Tomé (2,024m), a two-day ascent through untouched jungle to the highest point in the country.</p>
+        <p class="act-desc lang-es">El Parque Natural Obô cubre el 30% de la isla. Pico Cão Grande, el aguijón volcánico más icónico de la isla, es una excursión guiada de 3-6 horas. Para los más aventureros: Pico de São Tomé (2.024m), una ascensión de dos días por selva primaria.</p>
+        <span class="act-season lang-en">Best: June – September (dry season)</span>
+        <span class="act-season lang-es">Mejor época: junio – septiembre</span>
+      </div>
+
+      <!-- BOAT -->
+      <div class="act-card">
+        <div class="act-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2">
+            <path d="M3 17 Q12 10 21 17"/><path d="M5 17 L4 21h16l-1-4"/><path d="M12 5 L8 13h8z"/>
+          </svg>
+        </div>
+        <div class="act-name lang-en">Boat Trips</div>
+        <div class="act-name lang-es">Excursiones en Barco</div>
+        <div class="act-spot lang-en">Rolas Island · Snorkel · Coast</div>
+        <div class="act-spot lang-es">Isla de Rolas · Snorkel · Costa</div>
+        <p class="act-desc lang-en">Twenty minutes by boat from the southern coast lies Ilhéu das Rolas — where the Equator meets the Prime Meridian at 0°N, 0°E. Crystal-clear waters for snorkelling, a pristine beach, and the literal centre of the world. Coastal excursions also include fishing with local fishermen and whale watching in season.</p>
+        <p class="act-desc lang-es">A veinte minutos en barco está el Ilhéu das Rolas, donde el ecuador cruza el meridiano de Greenwich: 0°N, 0°E. Aguas cristalinas para snorkel, playa virgen y el centro exacto del mundo. También: pesca artesanal con pescadores locales y avistamiento de ballenas en temporada.</p>
+        <span class="act-season lang-en">Year-round · Whales: Jan – Mar</span>
+        <span class="act-season lang-es">Todo el año · Ballenas: ene – mar</span>
+      </div>
+
+
+      <!-- BIRDWATCHING -->
+      <div class="act-card">
+        <div class="act-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2">
+            <path d="M3 8 Q8 3 14 7 Q18 4 22 7 Q17 10 14 7"/>
+            <path d="M14 7 Q13 14 9 17 Q5 19 4 16 Q2 13 3 8"/>
+            <circle cx="17" cy="5" r="1.5" fill="#A68B5B"/>
+          </svg>
+        </div>
+        <div class="act-name lang-en">Birdwatching</div>
+        <div class="act-name lang-es">Observación de Aves</div>
+        <div class="act-spot lang-en">Obô National Park · East Coast</div>
+        <div class="act-spot lang-es">Parque Natural Obô · Costa Este</div>
+        <p class="act-desc lang-en">São Tomé has 27 endemic bird species — in an area eight times smaller than the Galápagos, which has only 21. The São Tomé Ibis and São Tomé Grosbeak have been spotted by fewer than ten living birders in the world. The forest around Komorebi is one of the rarest birdwatching destinations on Earth.</p>
+        <p class="act-desc lang-es">São Tomé tiene 27 especies endémicas en un área ocho veces menor que las Galápagos, que tienen 21. El Ibis y el Pinzón de São Tomé han sido vistos por menos de diez pajareros vivos en el mundo. La selva cerca de Komorebi es uno de los destinos de avistamiento más raros del planeta.</p>
+        <span class="act-season lang-en">Best: October – March</span>
+        <span class="act-season lang-es">Mejor época: octubre – marzo</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip fade-in">
+  <img src="images/emerald-lagoon-aerial.jpg" alt="São Tomé lagoon">
+  <img src="images/palm-beach-view.jpg" alt="São Tomé beach">
+  <img src="images/coastal-palm-road.jpg" alt="São Tomé coast">
+  <img src="images/jungle-road-aerial.jpg" alt="São Tomé jungle">
+</div>
+
+
+<!-- QUOTE -->
+<div class="quote-section fade-in">
+  <div class="quote-inner">
+    <div class="q-mark">"</div>
+    <p class="q-text lang-en">São Tomé is what the Caribbean was sixty years ago. What Bali was before the world found it. Come before the world does.</p>
+    <p class="q-text lang-es">São Tomé es lo que era el Caribe hace sesenta años. Lo que era Bali antes de que el mundo lo descubriera. Ven antes de que llegue el mundo.</p>
+    <span class="q-attr">— Komorebi</span>
+  </div>
+</div>
+
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="experience">
+    <div class="exp-inner">
+      <div class="fade-in">
+        <span class="section-label lang-en">Life at Komorebi</span>
+        <span class="section-label lang-es">La Vida en Komorebi</span>
+        <h2 class="display lang-en">Days of <em>unhurried</em> pleasure</h2>
+        <h2 class="display lang-es">Días de placer <em>sin prisa</em></h2>
+      </div>
+      <div class="exp-grid fade-in">
+        <div>
+          <div class="exp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3 class="exp-title lang-en">Private Chef</h3>
+          <h3 class="exp-title lang-es">Chef Privado</h3>
+          <p class="exp-desc lang-en">São Tomé's flavors at your table — fresh seafood, tropical fruits, local cacao in every form. Breakfast, lunch, dinner, crafted exclusively for you.</p>
+          <p class="exp-desc lang-es">Los sabores de São Tomé en tu mesa — mariscos frescos, frutas tropicales, cacao local. Elaborados exclusivamente para ti.</p>
+        </div>
+        <div>
+          <div class="exp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2"><path d="M3 17l4-8 4 4 4-6 4 10"/><path d="M3 21h18"/></svg></div>
+          <h3 class="exp-title lang-en">Nature & Adventure</h3>
+          <h3 class="exp-title lang-es">Naturaleza y Aventura</h3>
+          <p class="exp-desc lang-en">Jungle treks, snorkeling in pristine waters, kayaking, whale watching. One of Africa's most biodiverse islands, untouched and raw.</p>
+          <p class="exp-desc lang-es">Rutas por la selva, snorkel en aguas prístinas, kayak, avistamiento de ballenas. Una de las islas más biodiversas de África.</p>
+        </div>
+        <div>
+          <div class="exp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2"><circle cx="12" cy="12" r="4"/><path d="M2 12C2 6.5 6.5 2 12 2"/><path d="M12 22c5.5 0 10-4.5 10-10"/></svg></div>
+          <h3 class="exp-title lang-en">Wellness & Peace</h3>
+          <h3 class="exp-title lang-es">Bienestar y Paz</h3>
+          <p class="exp-desc lang-en">Yoga at sunrise, massage under the trees, the art of doing nothing surrounded by equatorial nature. Pure, uninterrupted stillness.</p>
+          <p class="exp-desc lang-es">Yoga al amanecer, masajes bajo los árboles, el arte de no hacer nada rodeado de naturaleza ecuatorial. Quietud absoluta.</p>
+        </div>
+        <div>
+          <div class="exp-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A68B5B" stroke-width="1.2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg></div>
+          <h3 class="exp-title lang-en">Exclusive Retreat</h3>
+          <h3 class="exp-title lang-es">Retiro Exclusivo</h3>
+          <p class="exp-desc lang-en">The entire estate is yours — no other guests, no interruptions. An intimate celebration, a creative retreat, or simply disappearing from the world.</p>
+          <p class="exp-desc lang-es">Toda la finca es tuya — sin otros huéspedes. Una celebración íntima, un retiro creativo, o simplemente desaparecer del mundo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CACAO -->
+<div class="cacao fade-in">
+  <div class="cacao-left">
+    <img class="cacao-img" src="images/cacao-harvest.jpg" alt="cacao São Tomé">
+    <div class="cacao-quote">
+      <p class="lang-en">"The cacao of São Tomé is the Burgundy of chocolate — a terroir unlike any other on Earth."</p>
+      <p class="lang-es">"El cacao de São Tomé es el Borgoña del chocolate — un terruño único en el mundo."</p>
+      <span>— Komorebi</span>
+    </div>
+  </div>
+  <div>
+    <span class="section-label lang-en">The Island's Treasure</span>
+    <span class="section-label lang-es">El Tesoro de la Isla</span>
+    <h2 class="display lang-en">The world's finest <em>cacao</em> grows here</h2>
+    <h2 class="display lang-es">El mejor <em>cacao</em> del mundo crece aquí</h2>
+    <p class="body-t" style="margin-top:1.4rem">
+      <span class="lang-en">São Tomé is renowned among chocolatiers worldwide for producing some of the most extraordinary cacao on the planet. Volcanic soil, equatorial humidity and centuries-old farming traditions create a flavour complexity impossible to replicate anywhere else.</span>
+      <span class="lang-es">São Tomé es reconocida entre los chocolateros de todo el mundo por producir uno de los cacaos más extraordinarios del planeta. El suelo volcánico, la humedad ecuatorial y las tradiciones centenarias crean una complejidad de sabor imposible de replicar.</span>
+    </p>
+    <p class="body-t" style="margin-top:1rem">
+      <span class="lang-en">At Komorebi, cacao is woven into your stay — from morning drinking chocolate to locally sourced desserts, prepared by your private chef with beans grown minutes from your door.</span>
+      <span class="lang-es">En Komorebi, el cacao forma parte de tu estancia — desde el chocolate caliente de la mañana hasta los postres locales, preparados por tu chef privado con granos cultivados a minutos de tu puerta.</span>
+    </p>
+  </div>
+</div>
+
+<section id="reserve">
+  <div class="reserve">
+    <!-- WAITLIST OVERLAY -->
+    <div class="reserve-cap">
+      <div class="cap-content">
+        <div class="cap-kanji">日</div>
+        <h2 class="cap-title lang-en">Komorebi opens in <em>2026</em><br>Join the waitlist</h2>
+        <h2 class="cap-title lang-es">Komorebi abre en <em>2026</em><br>Únete a la lista de espera</h2>
+        <p class="cap-sub lang-en">We are putting the final touches on something extraordinary. Leave your email and be among the first to reserve your stay — before anyone else.</p>
+        <p class="cap-sub lang-es">Estamos dando los últimos retoques a algo extraordinario. Deja tu email y sé de los primeros en reservar tu estancia — antes que nadie.</p>
+        <form class="cap-form" name="waitlist" method="POST" data-netlify="true" onsubmit="handleWaitlist(event)">
+          <input type="hidden" name="form-name" value="waitlist">
+          <input class="cap-input" type="email" name="email" id="waitlist-email" placeholder="your@email.com" required>
+          <button class="cap-btn" type="submit" id="waitlist-btn">
+            <span class="lang-en">Notify me</span>
+            <span class="lang-es">Avísame</span>
+          </button>
+        </form>
+        <p class="cap-note lang-en" id="waitlist-note">No spam. Just one email when bookings open.</p>
+        <p class="cap-note lang-es" id="waitlist-note-es">Sin spam. Solo un email cuando abramos reservas.</p>
+      </div>
+    </div>
+    <!-- BEHIND: pricing (visible through blur) -->
+    <div class="reserve-inner">
+      <div>
+        <span class="section-label lang-en">Reservations</span>
+        <span class="section-label lang-es">Reservas</span>
+        <h2 class="display lang-en">Begin your <em>Komorebi</em> story</h2>
+        <h2 class="display lang-es">Comienza tu historia <em>Komorebi</em></h2>
+        <p class="body-t" style="margin-top:1.2rem">
+          <span class="lang-en">Exclusive use of the entire property. A handful of guests per year. Every stay crafted by hand.</span>
+          <span class="lang-es">Uso exclusivo de toda la propiedad. Un puñado de huéspedes al año. Cada estancia diseñada a mano.</span>
+        </p>
+        <div class="price-list">
+          <div class="price-item">
+            <div><div class="price-name lang-en">1–2 Guests</div><div class="price-name lang-es">1–2 Huéspedes</div></div>
+            <div class="price-amt">€300<small>/night</small></div>
+          </div>
+          <div class="price-item">
+            <div><div class="price-name lang-en">3–4 Guests</div><div class="price-name lang-es">3–4 Huéspedes</div></div>
+            <div class="price-amt">€350<small>/night</small></div>
+          </div>
+          <div class="price-item">
+            <div><div class="price-name lang-en">5–6 Guests</div><div class="price-name lang-es">5–6 Huéspedes</div></div>
+            <div class="price-amt">€400<small>/night</small></div>
+          </div>
+          <div class="price-item">
+            <div><div class="price-name lang-en">7–8 Guests</div><div class="price-name lang-es">7–8 Huéspedes</div></div>
+            <div class="price-amt">€500<small>/night</small></div>
+          </div>
+        </div>
+        <span class="price-badge lang-en">★ Stay 6 nights, pay 5</span>
+        <span class="price-badge lang-es">★ 6 noches al precio de 5</span>
+        <div class="price-conditions">
+          <div class="cond-item lang-en">High season +15% (Jul 20–Sep 15 · Dec holidays–Jan 7)</div>
+          <div class="cond-item lang-es">Temporada alta +15% (20 Jul–15 Sep · Dic–7 Ene)</div>
+          <div class="cond-item lang-en">Minimum stay: 4 nights</div>
+          <div class="cond-item lang-es">Estancia mínima: 4 noches</div>
+          <div class="cond-item lang-en">30% deposit to confirm · Balance due before arrival</div>
+          <div class="cond-item lang-es">30% depósito para confirmar · Resto antes de la llegada</div>
+          <div class="cond-item lang-en">Free cancellation within 7 days of booking</div>
+          <div class="cond-item lang-es">Cancelación gratuita en los primeros 7 días</div>
+        </div>
+      </div>
+      <div class="form-box">
+        <h3 class="form-title lang-en">Request a Reservation</h3>
+        <h3 class="form-title lang-es">Solicitar Reserva</h3>
+        <p class="form-sub lang-en">Opening 2026 — join the waitlist above</p>
+        <p class="form-sub lang-es">Abrimos en 2026 — únete a la lista de espera</p>
+        <div class="f-group">
+          <label class="f-lbl lang-en">Accommodation</label><label class="f-lbl lang-es">Alojamiento</label>
+          <select class="f-input"><option>Full Estate — from €300/night</option></select>
+        </div>
+        <div class="f-row f-group">
+          <div><label class="f-lbl lang-en">Check-in</label><label class="f-lbl lang-es">Llegada</label><input class="f-input" type="date" style="margin-bottom:0"></div>
+          <div><label class="f-lbl lang-en">Check-out</label><label class="f-lbl lang-es">Salida</label><input class="f-input" type="date" style="margin-bottom:0"></div>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl lang-en">Full Name</label><label class="f-lbl lang-es">Nombre</label>
+          <input class="f-input" type="text" placeholder="Your name">
+        </div>
+        <div class="f-group">
+          <label class="f-lbl">Email</label>
+          <input class="f-input" type="email" placeholder="your@email.com">
+        </div>
+        <button class="btn-res">
+          <span class="lang-en">Join the Waitlist</span>
+          <span class="lang-es">Únete a la Lista</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL -->
+<div class="legal fade-in">
+  <div class="legal-inner">
+    <span class="section-label" style="margin-bottom:1.5rem">
+      <span class="lang-en">Booking Conditions</span>
+      <span class="lang-es">Condiciones de Reserva</span>
+    </span>
+    <div class="legal-grid">
+      <div>
+        <div class="legal-col-title lang-en">Payments</div>
+        <div class="legal-col-title lang-es">Pagos</div>
+        <p class="legal-text lang-en">30% deposit to confirm. Balance due the day before arrival. Security deposit €350 pre-authorised on card, returned within 48h after check-out.</p>
+        <p class="legal-text lang-es">30% al confirmar. Resto el día previo a la llegada. Fianza de €350 retenida en tarjeta, devuelta en 48h tras la salida.</p>
+      </div>
+      <div>
+        <div class="legal-col-title lang-en">Cancellation</div>
+        <div class="legal-col-title lang-es">Cancelación</div>
+        <p class="legal-text lang-en">Free within 7 days of booking. 50% refund up to 30 days before arrival. Non-refundable within 30 days of arrival.</p>
+        <p class="legal-text lang-es">Gratuita en los primeros 7 días. 50% de reembolso hasta 30 días antes. No reembolsable con menos de 30 días.</p>
+      </div>
+      <div>
+        <div class="legal-col-title lang-en">House Rules</div>
+        <div class="legal-col-title lang-es">Normas</div>
+        <p class="legal-text lang-en">Max 8 guests. No parties or events. Pets allowed (guest responsibility). Minimum recommended age 10 years. Check-in 15:00 · Check-out 12:00.</p>
+        <p class="legal-text lang-es">Máx 8 personas. No se permiten fiestas. Mascotas permitidas. Edad mínima recomendada 10 años. Entrada 15:00 · Salida 12:00.</p>
+      </div>
+      <div>
+        <div class="legal-col-title lang-en">Privacy & Cookies</div>
+        <div class="legal-col-title lang-es">Privacidad</div>
+        <p class="legal-text lang-en">Personal data used only for booking management. Not shared with third parties. Cookies used to improve user experience.</p>
+        <p class="legal-text lang-es">Datos personales usados solo para gestionar la reserva. No compartidos con terceros. Cookies para mejorar la experiencia.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="f-logo">
+        <div class="f-kanji">日</div>
+        <div class="f-name">KOMO<span>REBI</span></div>
+      </div>
+      <p class="f-tagline lang-en">A boutique beachfront estate on São Tomé Island, where light filters through the trees and the ocean is always close. Opening 2026.</p>
+      <p class="f-tagline lang-es">Una finca boutique en primera línea de playa en São Tomé, donde la luz se filtra entre los árboles y el océano siempre está cerca. Abre en 2026.</p>
+    </div>
+    <div>
+      <p class="f-col-title lang-en">Navigate</p><p class="f-col-title lang-es">Navegar</p>
+      <ul class="f-links">
+        <li><a href="#spaces"><span class="lang-en">Spaces</span><span class="lang-es">Espacios</span></a></li>
+        <li><a href="#activities"><span class="lang-en">Activities</span><span class="lang-es">Actividades</span></a></li>
+    <li><a href="#experience"><span class="lang-en">Experience</span><span class="lang-es">Experiencia</span></a></li>
+        <li><a href="#island"><span class="lang-en">The Island</span><span class="lang-es">La Isla</span></a></li>
+        <li><a href="#reserve"><span class="lang-en">Join Waitlist</span><span class="lang-es">Lista de Espera</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="f-col-title">Contact</p>
+      <ul class="f-links">
+        <li><a href="mailto:Komorebi.stp@gmail.com">Komorebi.stp@gmail.com</a></li>
+        <li><a href="https://instagram.com/komorebi_stp" target="_blank">@komorebi_stp</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="f-col-title lang-en">Legal</p><p class="f-col-title lang-es">Legal</p>
+      <ul class="f-links">
+        <li><a href="#"><span class="lang-en">Privacy Policy</span><span class="lang-es">Privacidad</span></a></li>
+        <li><a href="#"><span class="lang-en">Cancellation</span><span class="lang-es">Cancelación</span></a></li>
+        <li><a href="#"><span class="lang-en">House Rules</span><span class="lang-es">Normas</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="f-copy">© 2025 Komorebi · São Tomé Island</span>
+    <span class="f-copy lang-en">Opening 2026 · Crafted with care, far from the ordinary</span>
+    <span class="f-copy lang-es">Abre en 2026 · Creado con cuidado, lejos de lo ordinario</span>
+  </div>
+</footer>
+
+<script>
+// NAV scroll
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
+
+// Fade-in on scroll
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');obs.unobserve(el.target)}}),{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// Language toggle
+let isEs=false;
+function toggleLang(){
+  isEs=!isEs;
+  document.body.classList.toggle('es',isEs);
+  document.getElementById('lang-btn').textContent=isEs?'EN':'ES';
+  document.querySelectorAll('.hero-cta').forEach((el,i)=>{
+    el.style.display=(i===0&&isEs)?'none':(i===1&&!isEs)?'none':'inline-block';
+  });
+  document.querySelectorAll('.tag.lang-en,.tag.lang-es').forEach(t=>{
+    t.style.display=t.classList.contains('lang-en')?(isEs?'none':'inline-block'):(isEs?'inline-block':'none');
+  });
+}
+
+// Lightbox
+function openLightbox(id){
+  document.getElementById('lb-'+id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(id){
+  document.getElementById('lb-'+id).classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close on ESC
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    ['suite','living','garden'].forEach(id=>{
+      document.getElementById('lb-'+id).classList.remove('open');
+    });
+    document.body.style.overflow='';
+  }
+});
+
+// Waitlist
+function joinWaitlist(){
+  const email=document.getElementById('waitlist-email').value;
+  const note=document.getElementById('waitlist-note');
+  const noteEs=document.getElementById('waitlist-note-es');
+  if(!email||!email.includes('@')){
+    document.getElementById('waitlist-email').style.borderColor='rgba(196,100,90,0.6)';
+    return;
+  }
+  const btn=document.querySelector('.cap-btn');
+  btn.textContent='✓';
+  btn.style.background='#4A5C3F';
+  btn.style.color='var(--cream)';
+  note.textContent="You're on the list. We'll be in touch.";
+  noteEs.textContent="Ya estás en la lista. Te avisaremos.";
+  document.getElementById('waitlist-email').disabled=true;
+}
+
+function openMobileMenu() {
+  document.getElementById('mobile-menu').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>
