@@ -1131,12 +1131,9 @@ body.es span.lang-es{display:inline}
         <h2 class="cap-title lang-es">Komorebi abre en <em>2026</em><br>Únete a la lista de espera</h2>
         <p class="cap-sub lang-en">We are putting the final touches on something extraordinary. Leave your email and be among the first to reserve your stay — before anyone else.</p>
         <p class="cap-sub lang-es">Estamos dando los últimos retoques a algo extraordinario. Deja tu email y sé de los primeros en reservar tu estancia — antes que nadie.</p>
-        <form class="cap-form" action="https://komorebicollection.us9.list-manage.com/subscribe/post?u=2ec8837f108b4e2be3e683db9&amp;id=68c21dd4b5&amp;f_id=00bcc2e1f0" method="post" id="mc-embedded-subscribe-form" target="_blank">
+        <form class="cap-form" id="mc-embedded-subscribe-form" onsubmit="return submitMailchimp(event)">
           <input class="cap-input" type="email" name="EMAIL" id="mce-EMAIL" placeholder="your@email.com" required>
-          <div style="position: absolute; left: -5000px;" aria-hidden="true">
-            <input type="text" name="b_2ec8837f108b4e2be3e683db9_68c21dd4b5" tabindex="-1" value="">
-          </div>
-          <button class="cap-btn" type="submit" name="subscribe" id="mc-embedded-subscribe">
+          <button class="cap-btn" type="submit" id="mc-submit-btn">
             <span class="lang-en">Notify me</span>
             <span class="lang-es">Avísame</span>
           </button>
@@ -1337,6 +1334,51 @@ document.addEventListener('keydown',e=>{
     document.body.style.overflow='';
   }
 });
+
+// Mailchimp submission
+function submitMailchimp(e){
+  e.preventDefault();
+  const email = document.getElementById('mce-EMAIL').value;
+  const btn = document.getElementById('mc-submit-btn');
+  const noteEn = document.getElementById('waitlist-note');
+  const noteEs = document.getElementById('waitlist-note-es');
+  const form = document.getElementById('mc-embedded-subscribe-form');
+  
+  if(!email || !email.includes('@')) return;
+  
+  // Disable form
+  btn.disabled = true;
+  btn.innerHTML = '...';
+  
+  // Mailchimp JSONP endpoint
+  const url = 'https://komorebicollection.us9.list-manage.com/subscribe/post-json?u=2ec8837f108b4e2be3e683db9&id=68c21dd4b5&EMAIL=' + encodeURIComponent(email) + '&c=mailchimpCallback';
+  
+  // Create script tag for JSONP
+  const script = document.createElement('script');
+  script.src = url;
+  document.body.appendChild(script);
+  
+  // Callback (Mailchimp calls this)
+  window.mailchimpCallback = function(data) {
+    if (data.result === 'success' || data.msg.includes('already subscribed')) {
+      // Success
+      btn.innerHTML = '✓';
+      btn.style.background = '#4A5C3F';
+      btn.style.color = 'var(--cream)';
+      noteEn.textContent = "You're on the list. We'll be in touch.";
+      noteEs.textContent = "Ya estás en la lista. Te avisaremos.";
+      form.querySelector('input[type="email"]').disabled = true;
+    } else {
+      // Error
+      btn.disabled = false;
+      btn.innerHTML = '<span class="lang-en">Notify me</span><span class="lang-es">Avísame</span>';
+      alert('Error: ' + data.msg);
+    }
+    document.body.removeChild(script);
+  };
+  
+  return false;
+}
 
 function openMobileMenu() {
   document.getElementById('mobile-menu').classList.add('open');
