@@ -1131,10 +1131,12 @@ body.es span.lang-es{display:inline}
         <h2 class="cap-title lang-es">Komorebi abre en <em>2026</em><br>Únete a la lista de espera</h2>
         <p class="cap-sub lang-en">We are putting the final touches on something extraordinary. Leave your email and be among the first to reserve your stay — before anyone else.</p>
         <p class="cap-sub lang-es">Estamos dando los últimos retoques a algo extraordinario. Deja tu email y sé de los primeros en reservar tu estancia — antes que nadie.</p>
-        <form class="cap-form" name="waitlist" method="POST" data-netlify="true" onsubmit="handleWaitlist(event)">
-          <input type="hidden" name="form-name" value="waitlist">
-          <input class="cap-input" type="email" name="email" id="waitlist-email" placeholder="your@email.com" required>
-          <button class="cap-btn" type="submit" id="waitlist-btn">
+        <form class="cap-form" action="https://komorebicollection.us9.list-manage.com/subscribe/post?u=2ec8837f108b4e2be3e683db9&amp;id=68c21dd4b5&amp;f_id=00bcc2e1f0" method="post" id="mc-embedded-subscribe-form" target="_blank">
+          <input class="cap-input" type="email" name="EMAIL" id="mce-EMAIL" placeholder="your@email.com" required>
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input type="text" name="b_2ec8837f108b4e2be3e683db9_68c21dd4b5" tabindex="-1" value="">
+          </div>
+          <button class="cap-btn" type="submit" name="subscribe" id="mc-embedded-subscribe">
             <span class="lang-en">Notify me</span>
             <span class="lang-es">Avísame</span>
           </button>
@@ -1335,24 +1337,6 @@ document.addEventListener('keydown',e=>{
     document.body.style.overflow='';
   }
 });
-
-// Waitlist
-function joinWaitlist(){
-  const email=document.getElementById('waitlist-email').value;
-  const note=document.getElementById('waitlist-note');
-  const noteEs=document.getElementById('waitlist-note-es');
-  if(!email||!email.includes('@')){
-    document.getElementById('waitlist-email').style.borderColor='rgba(196,100,90,0.6)';
-    return;
-  }
-  const btn=document.querySelector('.cap-btn');
-  btn.textContent='✓';
-  btn.style.background='#4A5C3F';
-  btn.style.color='var(--cream)';
-  note.textContent="You're on the list. We'll be in touch.";
-  noteEs.textContent="Ya estás en la lista. Te avisaremos.";
-  document.getElementById('waitlist-email').disabled=true;
-}
 
 function openMobileMenu() {
   document.getElementById('mobile-menu').classList.add('open');
